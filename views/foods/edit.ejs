@@ -1,0 +1,18 @@
+<h1>Edit <%=food.name%></h1>
+
+<form action="/users/<%= user._id %>/foods" method="POST">
+
+  <label for="username">Name:</label>
+  <input
+    type="text"
+    id="name"
+    name="name"
+    required
+    />
+  
+
+  <button type="submit">Edit Food</button>
+
+</form>
+
+<a href="/users/<%= user._id %>/foods">Back to Pantry</a>

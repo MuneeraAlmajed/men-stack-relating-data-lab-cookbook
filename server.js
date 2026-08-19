@@ -14,10 +14,15 @@ const morgan = require('morgan');
 
 const isSignedIn = require('./middleware/isSignedIn');
 const addUserToViews = require('./middleware/addUserToViews');
+const passUserToView = require('./middleware/pass-user-to-view.js');
 
 // CONTROLLERS
 const authCtrl = require('./controllers/authCtrl');
 const foodCtrl = require('./controllers/foodCtrl.js');
+const userCtrl = require('./controllers/userCtrl.js');
+const recipeCtrl = require('./controllers/recipeCtrl.js');
+const ingredientCtrl = require('./controllers/ingredientCtrl.js');
+
 
 // Set the port from environment variable or default to 3000
 const port = process.env.PORT ? process.env.PORT : '3000';
@@ -45,6 +50,7 @@ app.use(
 
 // Makes user available in EJS views
 app.use(addUserToViews);
+app.use(passUserToView);
 
 // PUBLIC ROUTES
 app.get('/', async (req, res) => {
@@ -70,12 +76,45 @@ app.delete('/users/:userId/foods/:itemId', foodCtrl.deleteItem);
 app.get('/users/:userId/foods/:itemId/edit', foodCtrl.editItem);
 
 app.put('/users/:userId/foods/:itemId', foodCtrl.updateItem);
+
+
+
+
 // CUSTOM MIDDLEWARE
 // Everything below this line requires the user to be signed in
 app.use(isSignedIn);
 
 // PRIVATE ROUTES
 app.get('/auth/sign-out', authCtrl.signout);
+
+app.get('/users/', userCtrl.index);
+
+app.get('/users/:userId',userCtrl.show);
+
+app.get('/recipes',recipeCtrl.index);
+
+app.get('/recipes/new', recipeCtrl.newRecipe);
+
+app.post('/recipes',recipeCtrl.createRecipe);
+
+app.get('/recipes/:recipeId', recipeCtrl.show);
+
+app.delete('/recipes/:recipeId', recipeCtrl.deleteRecipe);
+
+app.put('/recipes/:recipeId', recipeCtrl.updateRecipe);
+
+app.get('/recipes/:recipeId/edit', recipeCtrl.editRecipe);
+
+//ingredients
+app.get('/ingredients', ingredientCtrl.index);
+
+app.get('/ingredients/new', ingredientCtrl.newIng);
+
+app.post('/ingredients', ingredientCtrl.createIng);
+
+app.get('/ingredients/:ingredientId', ingredientCtrl.showIng);
+
+app.get('/ingredients/:ingredientId',ingredientCtrl.deleteIng);
 
 app.get('/protected', async (req, res) => {
   res.send(`You are logged in as ${req.session.user.username}`);

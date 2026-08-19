@@ -48,8 +48,7 @@ const create =async(req,res)=>{
         
         await food.save();
 
-        res.redirect(`/users/${req.params.userId}/foods`);
-    }catch(err){
+res.redirect(`/users/${food._id}/foods`);    }catch(err){
         console.log(err);
         res.redirect('/');
     }
@@ -94,7 +93,7 @@ const updateItem = async (req, res) => {
 
     await user.save();
 
-    res.redirect(`/users/${req.session.user._id}/foods`);
+    res.redirect(`/users/${user._id}/foods/${food._id}`);
   } catch (error) {
     console.log(error);
     res.redirect('/');

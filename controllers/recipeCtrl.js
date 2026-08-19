@@ -42,7 +42,7 @@ const createRecipe = async(req,res)=>{
 
 const show = async (req, res) => {
   try {
-    const recipe = await Recipe.findById(req.params.recipeId);
+    const recipe = await Recipe.findById(req.params.recipeId).populate('ingredients')
 
     res.locals.recipe = recipe;
 

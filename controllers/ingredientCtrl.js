@@ -55,10 +55,49 @@ const deleteIng = async(req,res)=>{
     const ingredient = await Ingredient.findById(req.params.ingredientId);
 
     await ingredient.deleteOne();
+
+    res.redirect('/ingredients');
     }catch(err){
         console.log(err)
         res.redirect('/')
     }
 }
 
-module.exports = {index,newIng,createIng,showIng,deleteIng};
+const editIng = async(req,res)=>{
+    try{
+        const ingredient = await Ingredient.findById(req.params.ingredientId);
+
+        res.locals.ingredient = ingredient;
+
+        res.render('ingredients/edit.ejs');
+
+    }catch(err){
+        console.log(err)
+        res.redirect('/');
+    }
+}
+
+const updateIng = async(req,res)=>{
+    try{
+        const ingredient = await Ingredient.findById(req.params.ingredientId);
+        ingredient.name = req.body.name;
+
+        await ingredient.save();
+
+        res.redirect(`/ingredients/${ingredient._id}`);
+    }catch(err){
+        console.log(err)
+        res.redirect('/');
+    }
+}
+
+
+module.exports = {
+    index,
+    newIng,
+    createIng,
+    showIng,
+    deleteIng,
+    editIng,
+    updateIng,
+};

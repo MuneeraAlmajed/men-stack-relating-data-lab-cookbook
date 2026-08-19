@@ -91,6 +91,8 @@ app.get('/users/', userCtrl.index);
 
 app.get('/users/:userId',userCtrl.show);
 
+//RECIPES
+
 app.get('/recipes',recipeCtrl.index);
 
 app.get('/recipes/new', recipeCtrl.newRecipe);
@@ -105,7 +107,8 @@ app.put('/recipes/:recipeId', recipeCtrl.updateRecipe);
 
 app.get('/recipes/:recipeId/edit', recipeCtrl.editRecipe);
 
-//ingredients
+//INGREDIENTS
+
 app.get('/ingredients', ingredientCtrl.index);
 
 app.get('/ingredients/new', ingredientCtrl.newIng);
@@ -114,7 +117,13 @@ app.post('/ingredients', ingredientCtrl.createIng);
 
 app.get('/ingredients/:ingredientId', ingredientCtrl.showIng);
 
-app.get('/ingredients/:ingredientId',ingredientCtrl.deleteIng);
+app.delete('/ingredients/:ingredientId',ingredientCtrl.deleteIng);
+
+app.get('/ingredients/:ingredientId/edit', ingredientCtrl.editIng);
+
+app.put('/ingredients/:ingredientId', ingredientCtrl.updateIng);
+
+
 
 app.get('/protected', async (req, res) => {
   res.send(`You are logged in as ${req.session.user.username}`);

@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const Recipe = require('../models/recipe');
 
 const index = async(req,res)=>{
     try{
@@ -17,9 +18,10 @@ const index = async(req,res)=>{
 const show = async(req,res)=>{
     try{
         const user = await User.findById(req.params.userId);
+        const recipes = await Recipe.find({ owner: req.params.userId });
 
         res.locals.user = user;
-        res.locals.pantry = user.pantry;
+        res.locals.recipes = recipes;
 
         res.render('users/show.ejs');
 

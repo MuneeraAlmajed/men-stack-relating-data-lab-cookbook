@@ -1,31 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= user.username %>'s Pantry</title>
+    <title>Community Recipes</title>
 </head>
+
 <body>
 
-    <h1><%= user.username %>'s Pantry</h1>
+    <h1>Community Recipes</h1>
 
-    <% if (pantry.length > 0) { %>
+    <% if (recipes.length > 0) { %>
 
         <ul>
-            <% pantry.forEach((food) => { %>
+            <% recipes.forEach((recipe) => { %>
+
                 <li>
-                    <%= food.name %>
-                </li>
+                    <h2><%= recipe.name %></h2>
+<p>By <%= user.username %></p>                </li>
+
             <% }); %>
         </ul>
 
     <% } else { %>
 
-        <p>There are no items in this pantry.</p>
+        <p>There are no recipes yet.</p>
 
     <% } %>
 
     <a href="/users">Back to Community</a>
 
 </body>
+
 </html>

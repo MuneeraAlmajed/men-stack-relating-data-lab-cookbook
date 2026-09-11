@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,12 +15,17 @@
   <h1><%= recipe.name %></h1>
 
   <h2>Instructions</h2>
-
   <p><%= recipe.instructions %></p>
 
-  <a href="/ingredients">View Ingredients</a>
+  <h2>Ingredients</h2>
 
+  <% recipe.ingredients.forEach((ingredient) => { %>
+    <p><%= ingredient.name %></p>
+  <% }) %>
+
+  <a href="/ingredients">View Ingredients</a>
   <a href="/recipes">Back to My Recipes</a>
 
 </body>
+
 </html>

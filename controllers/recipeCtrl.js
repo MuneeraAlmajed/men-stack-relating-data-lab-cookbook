@@ -1,6 +1,7 @@
 const express = require('express');
 const Recipe = require('../models/recipe');
 const User = require('../models/user')
+const Ingredient =require('../models/ingredient')
 
 const index = async(req,res)=>{
     try{
@@ -18,14 +19,18 @@ const index = async(req,res)=>{
         }
 }
 
-const newRecipe = async(req,res)=>{
-    try{
-        res.render('recipes/new.ejs');
-    }catch(err){
-        console.log(err);
-        res.redirect('/');
-    }
-}
+const newRecipe = async (req, res) => {
+  try {
+    const ingredients = await Ingredient.find({});
+
+    res.locals.ingredients = ingredients;
+
+    res.render('recipes/new.ejs');
+  } catch (err) {
+    console.log(err);
+    res.redirect('/');
+  }
+};
 
 const createRecipe = async(req,res)=>{
     try{
@@ -43,7 +48,6 @@ const createRecipe = async(req,res)=>{
 const show = async (req, res) => {
   try {
     const recipe = await Recipe.findById(req.params.recipeId).populate('ingredients')
-
     res.locals.recipe = recipe;
 
     res.render('recipes/show.ejs');

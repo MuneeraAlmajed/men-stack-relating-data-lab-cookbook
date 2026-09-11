@@ -6,6 +6,7 @@ const express = require('express');
 
 const app = express();
 
+
 // Middleware
 const session = require('express-session');
 const MongoStore = require('connect-mongo').MongoStore;
@@ -56,6 +57,7 @@ app.use(passUserToView);
 app.get('/', async (req, res) => {
   res.render('index.ejs');
 });
+
 
 app.get('/auth/sign-up', authCtrl.signup);
 app.post('/auth/sign-up', authCtrl.register);
